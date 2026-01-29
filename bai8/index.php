@@ -1,8 +1,5 @@
 <?php
-// =========================
-// BÀI 8 - REST API PHP CƠ BẢN
-// =========================
-
+// comand 
 $host = 'localhost';
 $user = 'root';
 $pass = '';
@@ -17,12 +14,9 @@ header('Content-Type: application/json; charset=utf-8');
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// =========================
-// GET
-// =========================
+
 if ($method === 'GET') {
 
-    // GET ALL
     if (!isset($_GET['id'])) {
         $rs = mysqli_query($conn, "SELECT * FROM products");
         $data = array();
@@ -35,7 +29,7 @@ if ($method === 'GET') {
         exit;
     }
 
-    // GET BY ID
+
     $id = (int)$_GET['id'];
     $rs = mysqli_query($conn, "SELECT * FROM products WHERE id=$id");
     $row = mysqli_fetch_assoc($rs);
@@ -44,9 +38,6 @@ if ($method === 'GET') {
     exit;
 }
 
-// =========================
-// POST - CREATE
-// =========================
 if ($method === 'POST') {
 
     $name  = $_POST['name'];
@@ -61,9 +52,6 @@ if ($method === 'POST') {
     exit;
 }
 
-// =========================
-// PUT - UPDATE
-// =========================
 if ($method === 'PUT') {
 
     parse_str(file_get_contents("php://input"), $data);
@@ -80,9 +68,6 @@ if ($method === 'PUT') {
     exit;
 }
 
-// =========================
-// DELETE
-// =========================
 if ($method === 'DELETE') {
 
     $id = (int)$_GET['id'];
