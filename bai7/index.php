@@ -43,7 +43,7 @@ function upload_image_basic($file, &$errors) {
         return '';
     }
 
-    $uploadDir = __DIR__ . '/uploads';
+    $uploadDir = __DIR__ . '/../uploads';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
@@ -67,7 +67,7 @@ if ($action === 'delete' && isset($_GET['id'])) {
     $row = mysqli_fetch_assoc($rs);
 
     if ($row && $row['image_path'] !== '') {
-        $oldPath = __DIR__ . '/' . $row['image_path'];
+        $oldPath = __DIR__ . '/../' . $row['image_path'];
         if (file_exists($oldPath)) @unlink($oldPath);
     }
 
@@ -119,7 +119,7 @@ if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($newPath !== '') {
             if ($id !== 0 && $form['image_path'] !== '') {
-                $oldPath = __DIR__ . '/' . $form['image_path'];
+                $oldPath = __DIR__ . '/../' . $row['image_path'];
                 if (file_exists($oldPath)) @unlink($oldPath);
             }
             $form['image_path'] = $newPath;
@@ -206,7 +206,7 @@ if ($action === 'list') {
 <?php } else { foreach ($products as $p) { ?>
 <tr>
   <td><?php echo (int)$p['id']; ?></td>
-  <td><?php if ($p['image_path'] !== '') { ?><img class="thumb" src="<?php echo htmlspecialchars($p['image_path']); ?>"><?php } ?></td>
+  <td><?php if ($p['image_path'] !== '') { ?><img class="thumb" src="../<?php echo htmlspecialchars($p['image_path']); ?>"><?php } ?></td>
   <td><?php echo htmlspecialchars($p['name']); ?></td>
   <td><?php echo number_format((float)$p['price']); ?> đ</td>
   <td class="text-left"><?php echo nl2br(htmlspecialchars($p['description'])); ?></td>
@@ -250,7 +250,7 @@ if ($action === 'list') {
   <div class="full">
     <label>Ảnh</label>
     <?php if ($action === 'edit' && $form['image_path'] !== '') { ?>
-      <img class="thumb" src="<?php echo htmlspecialchars($form['image_path']); ?>" style="width:180px;height:130px;">
+      <img class="thumb" src="../<?php echo htmlspecialchars($form['image_path']); ?>" style="width:180px;height:130px;">
     <?php } ?>
     <input type="file" name="image" accept="image/*">
   </div>

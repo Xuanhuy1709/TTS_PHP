@@ -25,24 +25,29 @@ class ProductModel
     return mysqli_fetch_assoc($rs);
   }
 
-  public function create($name, $price, $description)
+  public function create($name, $price, $description, $imagePath)
   {
     $name = mysqli_real_escape_string($this->conn, $name);
     $description = mysqli_real_escape_string($this->conn, $description);
+    $imagePath = mysqli_real_escape_string($this->conn, $imagePath);
     $price = (float)$price;
 
-    $sql = "INSERT INTO products(name, price, description) VALUES('$name', $price, '$description')";
+    $sql = "INSERT INTO products(name, price, description, image_path)
+            VALUES('$name', $price, '$description', '$imagePath')";
     return mysqli_query($this->conn, $sql);
   }
 
-  public function update($id, $name, $price, $description)
+  public function update($id, $name, $price, $description, $imagePath)
   {
     $id = (int)$id;
     $name = mysqli_real_escape_string($this->conn, $name);
     $description = mysqli_real_escape_string($this->conn, $description);
+    $imagePath = mysqli_real_escape_string($this->conn, $imagePath);
     $price = (float)$price;
 
-    $sql = "UPDATE products SET name='$name', price=$price, description='$description' WHERE id=$id";
+    $sql = "UPDATE products
+            SET name='$name', price=$price, description='$description', image_path='$imagePath'
+            WHERE id=$id";
     return mysqli_query($this->conn, $sql);
   }
 
